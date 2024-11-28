@@ -1,10 +1,11 @@
 int count=0;
-int randomTimeDelay = rand()%1000 + 100;
 const int FIXEDMODE=1;
-int randomValue = rand()%2;
 bool isRunning=false;
 unsigned long initialMillis=0;
 bool isFixedMode = true;
+int timeInterval=1000;
+int fixedValue=0;
+int alternativeValue =1;
 
  void printHelpMenu(){
     Serial.println("H o h (help): muestra este menu de ayuda.");
@@ -39,9 +40,15 @@ void loop() {
       isRunning = false;
       Serial.println("Final de publicación");
     }
-    else if(text=="t"){
-      randomTimeDelay = rand()%1000 + 100;
-      Serial.println("Nuevo intervalo de publicación " + String(randomTimeDelay));
+    else if(text=="t"){  
+      Serial.println("El número debe estar entre 1 y 10.");
+      while(Serial.available()==0);
+      long int number = Serial.parseInt();
+      if(number<1 || number>10){
+       Serial.println("Valor inválido");
+      }
+      timeInterval = number * 1000;
+      Serial.println("Nuevo intervalo de publicación " + String(timeInterval));
     }
     else if(text=="m"){
       isFixedMode = !isFixedMode;
@@ -57,15 +64,14 @@ void loop() {
 if (isRunning){
     unsigned long currentMillis = millis();
    
-      if(currentMillis- initialMillis>= randomTimeDelay){
+      if(currentMillis- initialMillis>= timeInterval){
         initialMillis = currentMillis;
       
         if(isFixedMode){
-          Serial.println("Valor fijo: " + String(FIXEDMODE));
+          Serial.println("Valor fijo: " + String(fixedValue));
         }else{
-        randomValue = rand() %2;
-        Serial.println("Valor alternativo: " + String(randomValue));
+        Serial.println("Valor alternativo: " + String(alternativeValue));
         }
       }
-}
+    }
 }
