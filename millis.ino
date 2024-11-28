@@ -19,6 +19,5 @@ void loop() {
     previousMillisCtr1 = currentMillis;
     Print(ctr1);
     ctr1++;
-  }
-    
+  }  
 }
