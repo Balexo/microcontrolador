@@ -62,9 +62,10 @@ if (isRunning){
       
         if(isFixedMode){
           Serial.println("Valor fijo: " + String(FIXEDMODE));
-        }else
+        }else{
         randomValue = rand() %2;
         Serial.println("Valor alternativo: " + String(randomValue));
         }
       }
+}
 }
